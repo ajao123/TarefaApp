@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Tarefas</string>
+    <string name="action_settings">Settings</string>
+    <string name="concluidas">Concluidas</string>
+    <string name="pendentes">Pendentes</string>
+    <string name="title_activity_tarefa_completa">Tarefas Concluídas</string>
+</resources>
