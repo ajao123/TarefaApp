@@ -48,8 +48,16 @@ public class ControllerFirebase {
 
     public ControllerFirebase(Context context, RecyclerView recyclerView, Boolean concluida) {
         FirebaseApp.initializeApp(context);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        try {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            firebaseDatabase.setPersistenceEnabled(true);
+            databaseReference = firebaseDatabase.getReference();
+            databaseReference.keepSynced(true);
+        }catch (Exception e){
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference();
+        }
+
         this.recyclerView = recyclerView;
         this.context = context;
         this.concluida = concluida;
@@ -62,7 +70,7 @@ public class ControllerFirebase {
         recyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayout.VERTICAL));
         tarefas = new ArrayList<>();
 
-        databaseReference.child("tarefas").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("tarefas").orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 tarefas.clear();
@@ -89,12 +97,18 @@ public class ControllerFirebase {
     public void deleteTarefa(String id){
 
         databaseReference.child("tarefas").child(id).removeValue();
-        carregarListaTarefas(recyclerView);
+        //
+        // carregarListaTarefas(recyclerView);
 
     }
 
     public void salvarTarefa(TarefaDTO tarefa){
-        databaseReference.child("tarefas").child(tarefa.getId()).setValue(tarefa);
+        try {
+            databaseReference.child("tarefas").child(tarefa.getId()).setValue(tarefa);
+        }catch (Exception e){
+            databaseReference.onDisconnect().setValue("I disconnected!");
+        }
+
     }
 
     public RecyclerView getRecyclerView() {

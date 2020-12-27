@@ -32,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         controllerFirebase.deleteTarefa(tarefaSelecionada.getId());
-
+                                        Toast.makeText(getApplicationContext(),
+                                                "Tarefa excluída com sucesso.",
+                                                Toast.LENGTH_SHORT);
                                     }
                                 });
 

@@ -69,7 +69,7 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.itemSalvar:
-                if (editTarefa.getText().toString() != "") {
+                if (!editTarefa.getText().toString().equals("")) {
 
                     TarefaDTO tarefa = new TarefaDTO();
                     if (tarefaAtual == null) {
@@ -96,24 +96,6 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
                 finish();
                 break;
 
-                /*
-                    if (editTarefa.getText().toString() != "") {
-
-                        Tarefa tarefa = new Tarefa(UUID.randomUUID().toString(), editTarefa.getText().toString(), checkConcluida.isChecked());
-                        databaseReference.child("tarefas").child(tarefa.getId()).setValue(tarefa);
-                        if (tarefa.getConcluida()) {
-                            Intent intent = new Intent(getApplicationContext(), TarefaCompleta.class);
-                            startActivity(intent);
-                        } else {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                        }
-                    }
-                }else{
-                    Tarefa tarefa = new Tarefa(tarefaAtual.getId(), editTarefa.getText().toString(), checkConcluida.isChecked());
-                    databaseReference.child("tarefas").child(tarefa.getId()).setValue(tarefa);
-                }
-                */
 
         }
         return super.onOptionsItemSelected(item);
