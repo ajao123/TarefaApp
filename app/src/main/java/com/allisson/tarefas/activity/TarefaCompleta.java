@@ -93,6 +93,9 @@ public class TarefaCompleta extends AppCompatActivity {
                 )
         );
 
+        controllerFirebase = new ControllerFirebase(TarefaCompleta.this, recyclerView, true);
+        controllerFirebase.carregarListaTarefas(recyclerView);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,8 +108,6 @@ public class TarefaCompleta extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        controllerFirebase = new ControllerFirebase(TarefaCompleta.this, recyclerView, true);
-        controllerFirebase.carregarListaTarefas(recyclerView);
         super.onStart();
     }
 

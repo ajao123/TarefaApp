@@ -10,33 +10,20 @@ import com.allisson.tarefas.firebase.ControllerFirebase;
 import com.allisson.tarefas.helper.RecyclerItemClickListener;
 import com.allisson.tarefas.model.Tarefa;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -98,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 )
         );
 
+        controllerFirebase = new ControllerFirebase(MainActivity.this, recyclerView, false);
+        controllerFirebase.carregarListaTarefas(recyclerView);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        controllerFirebase = new ControllerFirebase(MainActivity.this, recyclerView, false);
-        controllerFirebase.carregarListaTarefas(recyclerView);
         super.onStart();
     }
 
